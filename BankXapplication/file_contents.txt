@@ -1,0 +1,732 @@
+File: ./.mvn/wrapper/maven-wrapper.properties
+----------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+wrapperVersion=3.3.2
+distributionType=only-script
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.7/apache-maven-3.9.7-bin.zip
+
+
+
+File: ./pom.xml
+----------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.8</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.bankx</groupId>
+	<artifactId>bankx</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>bankx</name>
+	<description>BankX</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+
+
+File: ./src/main/java/com/bankx/BankxApplication.java
+----------------------------------------
+package com.bankx;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BankxApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BankxApplication.class, args);
+	}
+
+}
+
+
+
+File: ./src/main/java/com/bankx/controller/BankController.java
+----------------------------------------
+package com.bankx.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.bankx.model.Customer;
+import com.bankx.model.Transaction;
+import com.bankx.service.BankService;
+
+@RestController
+@RequestMapping("/api/bank")
+public class BankController {
+    
+    @Autowired
+    private BankService bankService;
+
+    @PostMapping("/customers")
+    public ResponseEntity<Customer> onboardCustomer(@RequestParam String name) {
+        Customer customer = bankService.onboardCustomer(name);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+    }
+
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable String id) {
+        Customer customer = bankService.getCustomer(id);
+        return ResponseEntity.ok(customer);
+    }
+
+    @GetMapping("/customers")
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        List<Customer> customers = bankService.getAllCustomers();
+        return ResponseEntity.ok(customers);
+    }
+
+    @PostMapping("/customers/{id}/transferToSavings")
+    public ResponseEntity<String> transferToSavings(
+            @PathVariable String id,
+            @RequestParam double amount) {
+        bankService.transferToSavings(id, amount);
+        return ResponseEntity.ok("Transfer to Savings successful");
+    }
+
+    @PostMapping("/customers/{id}/transferToCurrent")
+    public ResponseEntity<String> transferToCurrent(
+            @PathVariable String id,
+            @RequestParam double amount) {
+        bankService.transferToCurrent(id, amount);
+        return ResponseEntity.ok("Transfer to Current successful");
+    }
+
+    @PostMapping("/payment")
+    public ResponseEntity<String> makePayment(
+            @RequestParam String senderAccountId,
+            @RequestParam String recipientAccountId,
+            @RequestParam double amount) {
+        bankService.makePayment(senderAccountId, recipientAccountId, amount);
+        return ResponseEntity.ok("Payment successful");
+    }
+
+
+    @GetMapping("/customers/{id}/transactions")
+    public ResponseEntity<List<Transaction>> getCustomerTransactions(@PathVariable String id) {
+        List<Transaction> transactions = bankService.getCustomerTransactions(id);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/customers/{id}/balance")
+    public ResponseEntity<String> getCustomerBalance(@PathVariable String id) {
+        String balanceInfo = bankService.getCustomerBalance(id);
+        return ResponseEntity.ok(balanceInfo);
+    }
+}
+
+
+File: ./src/main/java/com/bankx/exception/BankException.java
+----------------------------------------
+package com.bankx.exception;
+
+public class BankException extends RuntimeException {
+    private final String errorCode;
+
+    public BankException(String message, String errorCode) {
+        super(message);
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public static BankException customerNotFound(String customerId) {
+        return new BankException("Customer not found with id: " + customerId, "CUSTOMER_NOT_FOUND");
+    }
+
+    public static BankException insufficientFunds(String accountType) {
+        return new BankException("Insufficient funds in " + accountType + " Account", "INSUFFICIENT_FUNDS");
+    }
+
+}
+
+
+File: ./src/main/java/com/bankx/exception/ErrorDetails.java
+----------------------------------------
+package com.bankx.exception;
+
+import java.util.Date;
+
+public class ErrorDetails {
+    private Date timestamp;
+    private String message;
+    private String errorCode;
+    private String details;
+
+    public ErrorDetails(Date timestamp, String message, String errorCode, String details) {
+        this.timestamp = timestamp;
+        this.message = message;
+        this.errorCode = errorCode;
+        this.details = details;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+}
+
+
+File: ./src/main/java/com/bankx/exception/GlobalExceptionHandler.java
+----------------------------------------
+package com.bankx.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+
+import java.util.Date;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BankException.class)
+    public ResponseEntity<?> handleBankException(BankException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+            new Date(),
+            ex.getMessage(),
+            ex.getErrorCode(),
+            request.getDescription(false)
+        );
+        
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        if (ex.getErrorCode().equals("CUSTOMER_NOT_FOUND")) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        
+        return new ResponseEntity<>(errorDetails, status);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+            new Date(),
+            ex.getMessage(),
+            "INTERNAL_ERROR",
+            request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
+File: ./src/main/java/com/bankx/model/Account.java
+----------------------------------------
+package com.bankx.model;
+
+import java.util.UUID;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+import com.bankx.exception.BankException;
+
+@Entity
+public class Account {
+    @Id
+    private String accountId;
+    private String type;
+    private double balance;
+
+    public Account() {
+        this.accountId = UUID.randomUUID().toString();
+    }
+
+    public Account(String type) {
+        this();
+        this.type = type;
+        this.balance = 0.0;
+    }
+
+    public void credit(double amount) {
+        balance += amount;
+        if (type.equals("Savings")) {
+            double interest = balance * 0.005; // 0.5% interest
+            balance += interest;
+        }
+    }
+
+    public void debit(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+        } else {
+            throw BankException.insufficientFunds(type);
+        }
+    }
+
+    // Getters and setters
+    public String getAccountId() { return accountId; }
+    public void setAccountId(String accountId) { this.accountId = accountId; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+    public double getBalance() { return balance; }
+    public void setBalance(double balance) { this.balance = balance; }
+}
+
+
+File: ./src/main/java/com/bankx/model/Customer.java
+----------------------------------------
+package com.bankx.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import com.bankx.exception.BankException;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Customer {
+    @Id
+    private String id;
+    private String name;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account currentAccount;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account savingsAccount;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactionHistory = new ArrayList<>();
+
+    public Customer() {
+        this.id = UUID.randomUUID().toString();
+    }
+    
+    public Customer(String name) {
+        this();
+        this.name = name;
+        this.currentAccount = new Account("Current");
+        this.savingsAccount = new Account("Savings");
+        creditSavingsAccountBonus();
+    }
+
+    private void creditSavingsAccountBonus() {
+        savingsAccount.credit(500.0);
+        addTransaction(new Transaction("Joining Bonus", 500.0, "Savings"));
+    }
+
+    public void transferToSavings(double amount) {
+        if (currentAccount.getBalance() >= amount) {
+            currentAccount.debit(amount);
+            savingsAccount.credit(amount);
+            addTransaction(new Transaction("Transfer to Savings", amount, currentAccount.getAccountId()));
+            addTransaction(new Transaction("Transfer from Current", amount, savingsAccount.getAccountId()));
+        } else {
+            throw BankException.insufficientFunds("Current");
+        }
+    }
+
+    public void transferToCurrent(double amount) {
+        if (savingsAccount.getBalance() >= amount) {
+            savingsAccount.debit(amount);
+            currentAccount.credit(amount);
+            addTransaction(new Transaction("Transfer to Current", amount, savingsAccount.getAccountId()));
+            addTransaction(new Transaction("Transfer from Savings", amount, currentAccount.getAccountId()));
+        } else {
+            throw BankException.insufficientFunds("Savings");
+        }
+    }
+
+    public void makePayment(double amount, String recipientAccount) {
+        double fee = amount * 0.0005; // 0.05% fee
+        double totalAmount = amount + fee;
+        
+        if (currentAccount.getBalance() >= totalAmount) {
+            currentAccount.debit(totalAmount);
+            addTransaction(new Transaction("Payment to " + recipientAccount, amount, currentAccount.getAccountId()));
+            addTransaction(new Transaction("Transaction fee", fee, currentAccount.getAccountId()));
+        } else {
+            throw BankException.insufficientFunds("Current");
+        }
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactionHistory.add(transaction);
+    }
+
+    // Getters and setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public Account getCurrentAccount() { return currentAccount; }
+    public void setCurrentAccount(Account currentAccount) { this.currentAccount = currentAccount; }
+    public Account getSavingsAccount() { return savingsAccount; }
+    public void setSavingsAccount(Account savingsAccount) { this.savingsAccount = savingsAccount; }
+    public List<Transaction> getTransactionHistory() { return transactionHistory; }
+    public void setTransactionHistory(List<Transaction> transactionHistory) { this.transactionHistory = transactionHistory; }
+}
+
+
+File: ./src/main/java/com/bankx/model/Transaction.java
+----------------------------------------
+package com.bankx.model;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+public class Transaction {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String description;
+    private double amount;
+    private String accountId;
+    private Date timestamp;
+
+    public Transaction() {}
+
+    public Transaction(String description, double amount, String accountId) {
+        this.description = description;
+        this.amount = amount;
+        this.accountId = accountId;
+        this.timestamp = new Date();
+    }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
+    public String getAccountId() { return accountId; }
+    public void setAccountId(String accountId) { this.accountId = accountId; }
+    public Date getTimestamp() { return timestamp; }
+    public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
+}
+
+
+File: ./src/main/java/com/bankx/repository/CustomerRepository.java
+----------------------------------------
+package com.bankx.repository;
+import com.bankx.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CustomerRepository extends JpaRepository<Customer, String> {
+}
+
+
+
+File: ./src/main/java/com/bankx/service/BankService.java
+----------------------------------------
+package com.bankx.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bankx.exception.BankException;
+import com.bankx.model.Account;
+import com.bankx.model.Customer;
+import com.bankx.model.Transaction;
+import com.bankx.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
+
+@Service
+public class BankService {
+    @Autowired
+    private CustomerRepository customerRepository;
+    
+    @Autowired
+    private NotificationService notificationService;
+    
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
+    
+    @Transactional
+    public Customer onboardCustomer(String name) {
+        Customer customer = new Customer(name);
+        return customerRepository.save(customer);
+    }
+
+    public Customer getCustomer(String id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> BankException.customerNotFound(id));
+    }
+
+    @Transactional
+    public void transferToSavings(String customerId, double amount) {
+        Customer customer = getCustomer(customerId);
+        
+        if (customer.getCurrentAccount().getBalance() < amount) {
+            throw BankException.insufficientFunds("Current");
+        }
+        
+        customer.transferToSavings(amount);
+        customerRepository.save(customer);
+        notificationService.sendNotification(customer.getId(), 
+            customer.getTransactionHistory().get(customer.getTransactionHistory().size() - 1));
+    }
+
+    @Transactional
+    public void transferToCurrent(String customerId, double amount) {
+        Customer customer = getCustomer(customerId);
+        
+        if (customer.getSavingsAccount().getBalance() < amount) {
+            throw BankException.insufficientFunds("Savings");
+        }
+        
+        customer.transferToCurrent(amount);
+        customerRepository.save(customer);
+        notificationService.sendNotification(customer.getId(), 
+            customer.getTransactionHistory().get(customer.getTransactionHistory().size() - 1));
+    }
+
+    @Transactional
+    public void makePayment(String senderAccountId, String recipientAccountId, double amount) {
+        Account senderAccount = findAccountById(senderAccountId);
+        Account recipientAccount = findAccountById(recipientAccountId);
+        
+        Customer sender = findCustomerByAccountId(senderAccountId);
+        Customer recipient = findCustomerByAccountId(recipientAccountId);
+        
+        double fee = amount * 0.0005; // 0.05% fee
+        double totalAmount = amount + fee;
+        
+        if (senderAccount.getBalance() < totalAmount) {
+            throw BankException.insufficientFunds(senderAccount.getType());
+        }
+        
+        senderAccount.debit(totalAmount);
+        recipientAccount.credit(amount);
+        
+        Transaction senderTransaction = new Transaction("Payment to " + recipientAccountId, -amount, senderAccountId);
+        Transaction recipientTransaction = new Transaction("Payment from " + senderAccountId, amount, recipientAccountId);
+        Transaction feeTransaction = new Transaction("Transaction fee", -fee, senderAccountId);
+        
+        sender.addTransaction(senderTransaction);
+        sender.addTransaction(feeTransaction);
+        recipient.addTransaction(recipientTransaction);
+        
+        customerRepository.save(sender);
+        customerRepository.save(recipient);
+        
+        notificationService.sendNotification(sender.getId(), senderTransaction);
+        notificationService.sendNotification(recipient.getId(), recipientTransaction);
+    }
+
+    private Account findAccountById(String accountId) {
+        for (Customer customer : customerRepository.findAll()) {
+            if (customer.getCurrentAccount().getAccountId().equals(accountId)) {
+                return customer.getCurrentAccount();
+            }
+            if (customer.getSavingsAccount().getAccountId().equals(accountId)) {
+                return customer.getSavingsAccount();
+            }
+        }
+        throw new BankException("Account not found with id: " + accountId, "ACCOUNT_NOT_FOUND");
+    }
+
+    private Customer findCustomerByAccountId(String accountId) {
+        for (Customer customer : customerRepository.findAll()) {
+            if (customer.getCurrentAccount().getAccountId().equals(accountId) ||
+                customer.getSavingsAccount().getAccountId().equals(accountId)) {
+                return customer;
+            }
+        }
+        throw new BankException("Customer not found for account id: " + accountId, "CUSTOMER_NOT_FOUND");
+    }
+
+    public List<Transaction> getCustomerTransactions(String customerId) {
+        Customer customer = getCustomer(customerId);
+        return customer.getTransactionHistory();
+    }
+
+    public String getCustomerBalance(String customerId) {
+        Customer customer = getCustomer(customerId);
+        double currentBalance = customer.getCurrentAccount().getBalance();
+        double savingsBalance = customer.getSavingsAccount().getBalance();
+        return String.format("Current Account (ID: %s): R%.2f, Savings Account (ID: %s): R%.2f",
+            customer.getCurrentAccount().getAccountId(), currentBalance,
+            customer.getSavingsAccount().getAccountId(), savingsBalance);
+    }
+}
+
+
+File: ./src/main/java/com/bankx/service/NotificationService.java
+----------------------------------------
+package com.bankx.service;
+
+   import org.springframework.stereotype.Service;
+   import com.bankx.model.Transaction;
+
+   @Service
+   public class NotificationService {
+       public void sendNotification(String customerId, Transaction transaction) {
+           System.out.println("Notification sent to customer " + customerId + ": " + 
+                              transaction.getDescription() + " - Amount: " + transaction.getAmount());
+       }
+   }
+   
+
+
+File: ./src/main/resources/application.properties
+----------------------------------------
+spring.application.name=bankx
+spring.datasource.url=jdbc:h2:mem:bankdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+
+
+File: ./src/test/java/com/bankx/bankx/BankxApplicationTests.java
+----------------------------------------
+package com.bankx.bankx;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class BankxApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
+
+
+
+File: ./target/classes/application.properties
+----------------------------------------
+spring.application.name=bankx
+spring.datasource.url=jdbc:h2:mem:bankdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+
+
