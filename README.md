@@ -31,8 +31,8 @@ BankX is a Spring Boot application that simulates basic banking operations. It p
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/bankx.git
-   cd bankx
+   git clone https://github.com/prashantdhruw/BankApplication.git
+   cd BankXapplication
    ```
 
 2. Build the project:
