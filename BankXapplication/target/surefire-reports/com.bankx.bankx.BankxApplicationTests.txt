@@ -1,9 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.bankx.bankx.BankxApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.52 s <<< FAILURE! - in com.bankx.bankx.BankxApplicationTests
-contextLoads  Time elapsed: 0.012 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.bankx.model.Customer.transactionHistory[com.bankx.model.Transaction]
-Caused by: org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.bankx.model.Customer.transactionHistory[com.bankx.model.Transaction]
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.377 s - in com.bankx.bankx.BankxApplicationTests
