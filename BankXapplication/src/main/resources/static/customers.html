@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Customer Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html" class="active">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Customer Management</h1>
+        <section class="card">
+            <h2>Onboard New Customer</h2>
+            <input type="text" id="customerName" placeholder="Customer Name">
+            <button onclick="onboardCustomer()">Onboard Customer</button>
+        </section>
+        <section class="card">
+            <h2>Get Customer Information</h2>
+            <input type="text" id="customerId" placeholder="Customer ID">
+            <button onclick="getCustomer()">Get Customer</button>
+        </section>
+        <section class="card">
+            <h2>All Customers</h2>
+            <button onclick="getAllCustomers()">Get All Customers</button>
+        </section>
+        <section id="result" class="card result">
+            <div class="table-container"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
+
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            const tableContainer = resultElement.querySelector('.table-container');
+            tableContainer.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                const table = createTable(data);
+                tableContainer.appendChild(table);
+            } else if (typeof data === 'object') {
+                const table = createTable([data]);
+                tableContainer.appendChild(table);
+            } else {
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.entries(item).forEach(([key, value]) => {
+                    const td = document.createElement('td');
+                    td.textContent = formatValue(key, value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function formatValue(key, value) {
+            if (typeof value === 'object' && value !== null) {
+                if (Array.isArray(value)) {
+                    return value.length + ' items';
+                } else if (key === 'currentAccount' || key === 'savingsAccount') {
+                    return `ID: ${value.accountId}, Balance: ${value.balance}`;
+                } else {
+                    return JSON.stringify(value);
+                }
+            }
+            return value;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function onboardCustomer() {
+            const name = document.getElementById('customerName').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers?name=${name}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomer() {
+            const id = document.getElementById('customerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getAllCustomers() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html>

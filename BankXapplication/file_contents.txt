@@ -1,29 +1,5 @@
-File: ./.mvn/wrapper/maven-wrapper.properties
-----------------------------------------
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-wrapperVersion=3.3.2
-distributionType=only-script
-distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.7/apache-maven-3.9.7-bin.zip
-
-
-
-File: ./pom.xml
-----------------------------------------
+File: D:\BankApplication\BankXapplication\pom.xml 
+---------------------------------------- 
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -99,29 +75,26 @@ File: ./pom.xml
 	</build>
 
 </project>
-
-
-
-File: ./src/main/java/com/bankx/BankxApplication.java
-----------------------------------------
+ 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\BankXApplication.java 
+---------------------------------------- 
 package com.bankx;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BankxApplication {
+public class BankXApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BankxApplication.class, args);
+		SpringApplication.run(BankXApplication.class, args);
 	}
-
 }
-
-
-
-File: ./src/main/java/com/bankx/controller/BankController.java
-----------------------------------------
+ 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\controller\BankController.java 
+---------------------------------------- 
 package com.bankx.controller;
 
 import java.util.List;
@@ -197,11 +170,10 @@ public class BankController {
         String balanceInfo = bankService.getCustomerBalance(id);
         return ResponseEntity.ok(balanceInfo);
     }
-}
-
-
-File: ./src/main/java/com/bankx/exception/BankException.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\exception\BankException.java 
+---------------------------------------- 
 package com.bankx.exception;
 
 public class BankException extends RuntimeException {
@@ -224,11 +196,10 @@ public class BankException extends RuntimeException {
         return new BankException("Insufficient funds in " + accountType + " Account", "INSUFFICIENT_FUNDS");
     }
 
-}
-
-
-File: ./src/main/java/com/bankx/exception/ErrorDetails.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\exception\ErrorDetails.java 
+---------------------------------------- 
 package com.bankx.exception;
 
 import java.util.Date;
@@ -278,11 +249,10 @@ public class ErrorDetails {
         this.details = details;
     }
 
-}
-
-
-File: ./src/main/java/com/bankx/exception/GlobalExceptionHandler.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\exception\GlobalExceptionHandler.java 
+---------------------------------------- 
 package com.bankx.exception;
 
 import org.springframework.http.HttpStatus;
@@ -323,11 +293,10 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
-
-
-File: ./src/main/java/com/bankx/model/Account.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\model\Account.java 
+---------------------------------------- 
 package com.bankx.model;
 
 import java.util.UUID;
@@ -377,11 +346,10 @@ public class Account {
     public void setType(String type) { this.type = type; }
     public double getBalance() { return balance; }
     public void setBalance(double balance) { this.balance = balance; }
-}
-
-
-File: ./src/main/java/com/bankx/model/Customer.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\model\Customer.java 
+---------------------------------------- 
 package com.bankx.model;
 
 import java.util.ArrayList;
@@ -479,11 +447,10 @@ public class Customer {
     public void setSavingsAccount(Account savingsAccount) { this.savingsAccount = savingsAccount; }
     public List<Transaction> getTransactionHistory() { return transactionHistory; }
     public void setTransactionHistory(List<Transaction> transactionHistory) { this.transactionHistory = transactionHistory; }
-}
-
-
-File: ./src/main/java/com/bankx/model/Transaction.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\model\Transaction.java 
+---------------------------------------- 
 package com.bankx.model;
 
 import java.util.Date;
@@ -522,22 +489,20 @@ public class Transaction {
     public void setAccountId(String accountId) { this.accountId = accountId; }
     public Date getTimestamp() { return timestamp; }
     public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
-}
-
-
-File: ./src/main/java/com/bankx/repository/CustomerRepository.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\repository\CustomerRepository.java 
+---------------------------------------- 
 package com.bankx.repository;
 import com.bankx.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
 }
-
-
-
-File: ./src/main/java/com/bankx/service/BankService.java
-----------------------------------------
+ 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\service\BankService.java 
+---------------------------------------- 
 package com.bankx.service;
 
 import java.util.List;
@@ -670,11 +635,10 @@ public class BankService {
             customer.getCurrentAccount().getAccountId(), currentBalance,
             customer.getSavingsAccount().getAccountId(), savingsBalance);
     }
-}
-
-
-File: ./src/main/java/com/bankx/service/NotificationService.java
-----------------------------------------
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\main\java\com\bankx\service\NotificationService.java 
+---------------------------------------- 
 package com.bankx.service;
 
    import org.springframework.stereotype.Service;
@@ -687,22 +651,613 @@ package com.bankx.service;
                               transaction.getDescription() + " - Amount: " + transaction.getAmount());
        }
    }
-   
-
-
-File: ./src/main/resources/application.properties
-----------------------------------------
+    
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\application.properties 
+---------------------------------------- 
 spring.application.name=bankx
 spring.datasource.url=jdbc:h2:mem:bankdb
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
+spring.h2.console.enabled=true 
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\static\accounts.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Account Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html" class="active">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Account Management</h1>
+        <section class="card">
+            <h2>Transfer Funds</h2>
+            <input type="text" id="transferCustomerId" placeholder="Customer ID">
+            <input type="number" id="transferAmount" placeholder="Amount">
+            <button onclick="transferToSavings()">Transfer to Savings</button>
+            <button onclick="transferToCurrent()">Transfer to Current</button>
+        </section>
+        <section class="card">
+            <h2>Account Information</h2>
+            <input type="text" id="infoCustomerId" placeholder="Customer ID">
+            <button onclick="getCustomerTransactions()">Get Transactions</button>
+            <button onclick="getCustomerBalance()">Get Balance</button>
+        </section>
+        <section id="result" class="card result"></section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
 
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
 
-File: ./src/test/java/com/bankx/bankx/BankxApplicationTests.java
-----------------------------------------
+            if (Array.isArray(data)) {
+                // Display array data in a table
+                const table = createTable(data);
+                resultElement.appendChild(table);
+            } else if (typeof data === 'object') {
+                // Display object data in a table
+                const table = createTable([data]);
+                resultElement.appendChild(table);
+            } else {
+                // Display simple string or number
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.values(item).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = JSON.stringify(value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function transferToSavings() {
+            const id = document.getElementById('transferCustomerId').value;
+            const amount = document.getElementById('transferAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers/${id}/transferToSavings?amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function transferToCurrent() {
+            const id = document.getElementById('transferCustomerId').value;
+            const amount = document.getElementById('transferAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers/${id}/transferToCurrent?amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomerTransactions() {
+            const id = document.getElementById('infoCustomerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}/transactions`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomerBalance() {
+            const id = document.getElementById('infoCustomerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}/balance`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\static\customers.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Customer Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html" class="active">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Customer Management</h1>
+        <section class="card">
+            <h2>Onboard New Customer</h2>
+            <input type="text" id="customerName" placeholder="Customer Name">
+            <button onclick="onboardCustomer()">Onboard Customer</button>
+        </section>
+        <section class="card">
+            <h2>Get Customer Information</h2>
+            <input type="text" id="customerId" placeholder="Customer ID">
+            <button onclick="getCustomer()">Get Customer</button>
+        </section>
+        <section class="card">
+            <h2>All Customers</h2>
+            <button onclick="getAllCustomers()">Get All Customers</button>
+        </section>
+        <section id="result" class="card result">
+            <div class="table-container"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
+
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            const tableContainer = resultElement.querySelector('.table-container');
+            tableContainer.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                const table = createTable(data);
+                tableContainer.appendChild(table);
+            } else if (typeof data === 'object') {
+                const table = createTable([data]);
+                tableContainer.appendChild(table);
+            } else {
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.entries(item).forEach(([key, value]) => {
+                    const td = document.createElement('td');
+                    td.textContent = formatValue(key, value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function formatValue(key, value) {
+            if (typeof value === 'object' && value !== null) {
+                if (Array.isArray(value)) {
+                    return value.length + ' items';
+                } else if (key === 'currentAccount' || key === 'savingsAccount') {
+                    return `ID: ${value.accountId}, Balance: ${value.balance}`;
+                } else {
+                    return JSON.stringify(value);
+                }
+            }
+            return value;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function onboardCustomer() {
+            const name = document.getElementById('customerName').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers?name=${name}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomer() {
+            const id = document.getElementById('customerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getAllCustomers() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\static\index.html 
+---------------------------------------- 
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to BankX</h1>
+        <p>Your trusted partner for all banking needs. Choose an option from the menu to get started.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\static\payments.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Payments</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html" class="active">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Payments</h1>
+        <section class="card">
+            <h2>Make a Payment</h2>
+            <input type="text" id="senderAccountId" placeholder="Sender Account ID">
+            <input type="text" id="recipientAccountId" placeholder="Recipient Account ID">
+            <input type="number" id="paymentAmount" placeholder="Amount">
+            <button onclick="makePayment()">Make Payment</button>
+        </section>
+        <section id="result" class="card result"></section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
+
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                // Display array data in a table
+                const table = createTable(data);
+                resultElement.appendChild(table);
+            } else if (typeof data === 'object') {
+                // Display object data in a table
+                const table = createTable([data]);
+                resultElement.appendChild(table);
+            } else {
+                // Display simple string or number
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.values(item).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = JSON.stringify(value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function makePayment() {
+            const senderAccountId = document.getElementById('senderAccountId').value;
+            const recipientAccountId = document.getElementById('recipientAccountId').value;
+            const amount = document.getElementById('paymentAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/payment?senderAccountId=${senderAccountId}&recipientAccountId=${recipientAccountId}&amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\src\main\resources\static\styles.css 
+---------------------------------------- 
+:root {
+    --primary-color: #003366;
+    --secondary-color: #0066cc;
+    --accent-color: #ff9900;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background-color: var(--secondary-color);
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+input, button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+}
+
+.card.result {
+    padding: 0;
+    overflow: hidden;
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    white-space: nowrap;
+}
+
+.result-table th, .result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.result-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.result-table tr:hover {
+    background-color: #ddd;
+}
+
+.result-table td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .card {
+        padding: 0.5rem;
+    }
+
+    .result-table {
+        font-size: 0.9rem;
+    }
+
+    .result-table th, .result-table td {
+        padding: 6px;
+    }
+} 
+ 
+File: D:\BankApplication\BankXapplication\src\test\java\com\bankx\bankx\BankxApplicationTests.java 
+---------------------------------------- 
 package com.bankx.bankx;
 
 import org.junit.jupiter.api.Test;
@@ -716,17 +1271,608 @@ class BankxApplicationTests {
 	}
 
 }
-
-
-
-File: ./target/classes/application.properties
-----------------------------------------
+ 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\application.properties 
+---------------------------------------- 
 spring.application.name=bankx
 spring.datasource.url=jdbc:h2:mem:bankdb
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
+spring.h2.console.enabled=true 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\static\accounts.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Account Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html" class="active">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Account Management</h1>
+        <section class="card">
+            <h2>Transfer Funds</h2>
+            <input type="text" id="transferCustomerId" placeholder="Customer ID">
+            <input type="number" id="transferAmount" placeholder="Amount">
+            <button onclick="transferToSavings()">Transfer to Savings</button>
+            <button onclick="transferToCurrent()">Transfer to Current</button>
+        </section>
+        <section class="card">
+            <h2>Account Information</h2>
+            <input type="text" id="infoCustomerId" placeholder="Customer ID">
+            <button onclick="getCustomerTransactions()">Get Transactions</button>
+            <button onclick="getCustomerBalance()">Get Balance</button>
+        </section>
+        <section id="result" class="card result"></section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
 
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
 
+            if (Array.isArray(data)) {
+                // Display array data in a table
+                const table = createTable(data);
+                resultElement.appendChild(table);
+            } else if (typeof data === 'object') {
+                // Display object data in a table
+                const table = createTable([data]);
+                resultElement.appendChild(table);
+            } else {
+                // Display simple string or number
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.values(item).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = JSON.stringify(value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function transferToSavings() {
+            const id = document.getElementById('transferCustomerId').value;
+            const amount = document.getElementById('transferAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers/${id}/transferToSavings?amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function transferToCurrent() {
+            const id = document.getElementById('transferCustomerId').value;
+            const amount = document.getElementById('transferAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers/${id}/transferToCurrent?amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomerTransactions() {
+            const id = document.getElementById('infoCustomerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}/transactions`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomerBalance() {
+            const id = document.getElementById('infoCustomerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}/balance`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\static\customers.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Customer Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html" class="active">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Customer Management</h1>
+        <section class="card">
+            <h2>Onboard New Customer</h2>
+            <input type="text" id="customerName" placeholder="Customer Name">
+            <button onclick="onboardCustomer()">Onboard Customer</button>
+        </section>
+        <section class="card">
+            <h2>Get Customer Information</h2>
+            <input type="text" id="customerId" placeholder="Customer ID">
+            <button onclick="getCustomer()">Get Customer</button>
+        </section>
+        <section class="card">
+            <h2>All Customers</h2>
+            <button onclick="getAllCustomers()">Get All Customers</button>
+        </section>
+        <section id="result" class="card result">
+            <div class="table-container"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
+
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            const tableContainer = resultElement.querySelector('.table-container');
+            tableContainer.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                const table = createTable(data);
+                tableContainer.appendChild(table);
+            } else if (typeof data === 'object') {
+                const table = createTable([data]);
+                tableContainer.appendChild(table);
+            } else {
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.entries(item).forEach(([key, value]) => {
+                    const td = document.createElement('td');
+                    td.textContent = formatValue(key, value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function formatValue(key, value) {
+            if (typeof value === 'object' && value !== null) {
+                if (Array.isArray(value)) {
+                    return value.length + ' items';
+                } else if (key === 'currentAccount' || key === 'savingsAccount') {
+                    return `ID: ${value.accountId}, Balance: ${value.balance}`;
+                } else {
+                    return JSON.stringify(value);
+                }
+            }
+            return value;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function onboardCustomer() {
+            const name = document.getElementById('customerName').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/customers?name=${name}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getCustomer() {
+            const id = document.getElementById('customerId').value;
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers/${id}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        async function getAllCustomers() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/customers`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\static\index.html 
+---------------------------------------- 
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to BankX</h1>
+        <p>Your trusted partner for all banking needs. Choose an option from the menu to get started.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\static\payments.html 
+---------------------------------------- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankX - Payments</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="accounts.html">Accounts</a></li>
+                <li><a href="payments.html" class="active">Payments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Payments</h1>
+        <section class="card">
+            <h2>Make a Payment</h2>
+            <input type="text" id="senderAccountId" placeholder="Sender Account ID">
+            <input type="text" id="recipientAccountId" placeholder="Recipient Account ID">
+            <input type="number" id="paymentAmount" placeholder="Amount">
+            <button onclick="makePayment()">Make Payment</button>
+        </section>
+        <section id="result" class="card result"></section>
+    </main>
+    <footer>
+        <p>&copy; 2024 BankX. All rights reserved.</p>
+    </footer>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/bank';
+
+        function displayResult(data) {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                // Display array data in a table
+                const table = createTable(data);
+                resultElement.appendChild(table);
+            } else if (typeof data === 'object') {
+                // Display object data in a table
+                const table = createTable([data]);
+                resultElement.appendChild(table);
+            } else {
+                // Display simple string or number
+                resultElement.textContent = data;
+            }
+        }
+
+        function createTable(data) {
+            const table = document.createElement('table');
+            table.className = 'result-table';
+
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                Object.values(item).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = JSON.stringify(value);
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function handleError(error) {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `Error: ${error.response?.data?.message || error.message}`;
+        }
+
+        async function makePayment() {
+            const senderAccountId = document.getElementById('senderAccountId').value;
+            const recipientAccountId = document.getElementById('recipientAccountId').value;
+            const amount = document.getElementById('paymentAmount').value;
+            try {
+                const response = await axios.post(`${API_BASE_URL}/payment?senderAccountId=${senderAccountId}&recipientAccountId=${recipientAccountId}&amount=${amount}`);
+                displayResult(response.data);
+            } catch (error) {
+                handleError(error);
+            }
+        }
+    </script>
+</body>
+</html> 
+ 
+File: D:\BankApplication\BankXapplication\target\classes\static\styles.css 
+---------------------------------------- 
+:root {
+    --primary-color: #003366;
+    --secondary-color: #0066cc;
+    --accent-color: #ff9900;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background-color: var(--secondary-color);
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+input, button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+}
+
+.card.result {
+    padding: 0;
+    overflow: hidden;
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    white-space: nowrap;
+}
+
+.result-table th, .result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.result-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.result-table tr:hover {
+    background-color: #ddd;
+}
+
+.result-table td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .card {
+        padding: 0.5rem;
+    }
+
+    .result-table {
+        font-size: 0.9rem;
+    }
+
+    .result-table th, .result-table td {
+        padding: 6px;
+    }
+} 
+ 
