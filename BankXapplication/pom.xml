@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bankx</groupId>
-	<artifactId>bankx</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>bankx</name>
+	<artifactId>BankApplication</artifactId>
+	<version>1.0</version>
+	<name>BankApplication</name>
 	<description>BankX</description>
 	<url/>
 	<licenses>
