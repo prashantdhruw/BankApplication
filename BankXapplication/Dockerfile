@@ -1,6 +1,6 @@
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:17-jre-slim
 
-WORKDIR  /BankXapplication
+WORKDIR /BankXapplication
 
 COPY target/BankApplication-1.0.jar app.jar
 
