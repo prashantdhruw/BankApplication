@@ -33,7 +33,7 @@
         <p>&copy; 2024 BankX. All rights reserved.</p>
     </footer>
     <script>
-        const API_BASE_URL = 'http://localhost:8080/api/bank';
+        const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:8080/api/bank';
 
         function displayResult(data) {
             const resultElement = document.getElementById('result');
