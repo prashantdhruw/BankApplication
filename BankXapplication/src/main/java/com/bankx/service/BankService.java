@@ -1,6 +1,9 @@
 package com.bankx.service;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +12,7 @@ import com.bankx.model.Account;
 import com.bankx.model.Customer;
 import com.bankx.model.Transaction;
 import com.bankx.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
+
 
 @Service
 public class BankService {

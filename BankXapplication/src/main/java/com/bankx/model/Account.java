@@ -2,8 +2,8 @@ package com.bankx.model;
 
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import com.bankx.exception.BankException;
 
