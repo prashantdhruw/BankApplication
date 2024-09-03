@@ -1,100 +1,113 @@
 # BankX Application
 
-BankX is a web-based banking application built using Spring Boot and Java. It provides features for customer management, account management, and payment processing.
+This project implements a simple banking application with features like customer onboarding, account management, and payments.
 
-## Table of Contents
-- [Requirements](#requirements)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [API Endpoints](#api-endpoints)
-- [Front-end](#front-end)
-- [Exception Handling](#exception-handling)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
+## Technologies Used
 
-## Requirements
-- Java 17
-- Apache Maven 3.8.1 or later
-- Spring Boot 3.2.8
-- H2 In-memory Database
-
-## Getting Started
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/BankXapplication.git
-   ```
-
-2. Navigate to the project directory:
-   ```
-   cd BankXapplication
-   ```
-
-3. Build the project using Maven:
-   ```
-   mvn clean install
-   ```
-
-4. Run the application:
-   ```
-   mvn spring-boot:run
-   ```
-
-5. Access the application in your web browser at `http://localhost:8080`.
+* **Spring Boot:** Framework for building stand-alone, production-ready Spring applications.
+* **Spring Data JPA:** Simplifies data access with JPA.
+* **H2 Database:** In-memory database used for development and testing.
+* **Maven:** Build tool for managing dependencies and building the project.
+* **HTML, CSS, JavaScript:** Technologies used for the frontend user interface.
+* **Axios:** JavaScript library for making HTTP requests to the backend.
+* **Docker:** Containerization technology for packaging and running the application.
 
 ## Project Structure
-The project follows a standard Maven project structure:
 
-- `src/main/java`: Contains the main application source code
-  - `com.bankx`: Base package for the application
-    - `controller`: Contains the REST API controllers
-    - `model`: Contains the domain model classes
-    - `repository`: Contains the data access layer interfaces
-    - `service`: Contains the business logic services
-    - `exception`: Contains custom exception classes and global exception handler
-- `src/main/resources`: Contains application configuration files and static resources
-  - `application.properties`: Application configuration properties
-  - `static`: Contains static HTML, CSS, and JavaScript files for the front-end
-- `src/test`: Contains test classes for the application
-- `pom.xml`: Maven configuration file for the project
-
-## API Endpoints
-The application exposes the following REST API endpoints:
-
-- `POST /api/bank/customers`: Onboard a new customer
-- `GET /api/bank/customers/{id}`: Get customer information by ID
-- `GET /api/bank/customers`: Get all customers
-- `POST /api/bank/customers/{id}/transferToSavings`: Transfer funds from current account to savings account
-- `POST /api/bank/customers/{id}/transferToCurrent`: Transfer funds from savings account to current account
-- `POST /api/bank/payment`: Make a payment between accounts
-- `GET /api/bank/customers/{id}/transactions`: Get customer transactions
-- `GET /api/bank/customers/{id}/balance`: Get customer balance information
-
-## Front-end
-The application includes a simple front-end built with HTML, CSS, and JavaScript. The front-end communicates with the backend API using AJAX requests with the Axios library.
-
-The front-end consists of the following pages:
-
-- `index.html`: Home page with navigation menu
-- `customers.html`: Customer management page for onboarding customers and viewing customer information
-- `accounts.html`: Account management page for transferring funds and viewing account information
-- `payments.html`: Payment processing page for making payments between accounts
-
-## Exception Handling
-The application implements custom exception handling using the `BankException` class and a global exception handler `GlobalExceptionHandler`. The global exception handler handles both `BankException` and generic `Exception` and returns appropriate error responses.
-
-## Testing
-The project includes a basic test class `BankxApplicationTests` for testing the application context loading. You can add more test classes to cover different aspects of the application.
-
-To run the tests, use the following command:
 ```
-mvn test
+BankApplication/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── com/
+│   │   │   │   └── bankx/
+│   │   │   │       ├── controller/
+│   │   │   │       │   └── BankController.java
+│   │   │   │       ├── exception/
+│   │   │   │       │   ├── BankException.java
+│   │   │   │       │   ├── ErrorDetails.java
+│   │   │   │       │   └── GlobalExceptionHandler.java
+│   │   │   │       ├── model/
+│   │   │   │       │   ├── Account.java
+│   │   │   │       │   ├── Customer.java
+│   │   │   │       │   └── Transaction.java
+│   │   │   │       ├── repository/
+│   │   │   │       │   └── CustomerRepository.java
+│   │   │   │       ├── service/
+│   │   │   │       │   ├── BankService.java
+│   │   │   │       │   ├── NotificationService.java
+│   │   │   │       └── BankXApplication.java
+│   │   ├── resources/
+│   │   │   ├── application.properties
+│   │   │   ├── static/
+│   │   │   │   ├── accounts.html
+│   │   │   │   ├── customers.html
+│   │   │   │   ├── index.html
+│   │   │   │   ├── payments.html
+│   │   │   │   └── styles.css
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── bankx/
+│                   └── bankx/
+│                       └── BankxApplicationTests.java
+└── pom.xml
 ```
 
-## Contributing
-Contributions to the BankX application are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+## Running the Application
 
-When contributing to this project, please follow the existing code style and conventions.
+1. **Build the project:**
+   ```bash
+   mvn clean package
+   ```
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+2. **Run the application:**
+   ```bash
+   java -jar target/BankApplication-1.0.jar
+   ```
+
+3. **Access the frontend:**
+   Open a web browser and navigate to `http://localhost:8080/`.
+
+## Using Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t bankx .
+   ```
+
+2. **Run the Docker container:**
+   ```bash
+   docker run -p 8080:8080 bankx
+   ```
+
+## Features
+
+* **Customer Onboarding:**
+    * Allows users to create new customer accounts with basic details.
+
+* **Account Management:**
+    * Provides functionality to transfer funds between current and savings accounts.
+    * Allows users to view their transaction history and account balances.
+
+* **Payments:**
+    * Enables users to make payments to other accounts with a transaction fee.
+
+## Notes
+
+* The application uses an in-memory H2 database for development and testing purposes.
+* The frontend is a basic HTML/CSS/JavaScript implementation.
+* The application includes error handling for common banking scenarios like insufficient funds and customer not found.
+* The notification system is currently implemented as simple console output.
+* The application is deployed using Docker for easy containerization and deployment.
+
+## Future Enhancements
+
+* Implement a more robust notification system using email or SMS.
+* Add support for different account types (e.g., checking accounts).
+* Integrate a third-party payment gateway for real-time payments.
+* Improve the frontend user interface with a more user-friendly design.
+* Add security features like user authentication and authorization.
+* Migrate to a production-ready database (e.g., MySQL or PostgreSQL).
+
+This project serves as a starting point for building a more comprehensive banking application. The provided code can be modified and extended to meet specific requirements.
