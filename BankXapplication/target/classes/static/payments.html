@@ -40,15 +40,12 @@
             resultElement.innerHTML = '';
 
             if (Array.isArray(data)) {
-                // Display array data in a table
                 const table = createTable(data);
                 resultElement.appendChild(table);
             } else if (typeof data === 'object') {
-                // Display object data in a table
                 const table = createTable([data]);
                 resultElement.appendChild(table);
             } else {
-                // Display simple string or number
                 resultElement.textContent = data;
             }
         }
@@ -57,7 +54,6 @@
             const table = document.createElement('table');
             table.className = 'result-table';
 
-            // Create table header
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
             Object.keys(data[0]).forEach(key => {
@@ -68,7 +64,6 @@
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
-            // Create table body
             const tbody = document.createElement('tbody');
             data.forEach(item => {
                 const row = document.createElement('tr');
